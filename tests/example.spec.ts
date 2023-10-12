@@ -1,18 +1,16 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
+import { Eyes } from '@applitools/eyes-playwright';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+const myApiKey = process.env.EYES_API_KEY ?? null;
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+test('check my website looks the same', async ({ page }) => {
+  if(myApiKey === null) throw new Error('EYES_API_KEY environment variable is not set');
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+  const eyes = new Eyes();
+  eyes.setApiKey(myApiKey);
+  await eyes.open(page, 'My website', 'First test');
+  await page.goto('https://www.example.com/');
+  await eyes.checkWindow('Main Page');
+  const results = await eyes.close();
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
-
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
 });

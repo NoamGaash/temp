@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "visually verify that my website is ok",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@applitools/eyes-playwright": "^1.21.0",
     "@playwright/test": "^1.39.0",
     "@types/node": "^20.8.4"
   }
