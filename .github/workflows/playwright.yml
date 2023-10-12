@@ -7,6 +7,8 @@ on:
   workflow_run:
 jobs:
   test:
+    env:
+      EYES_API_KEY: ${{ secrets.EYES_API_KEY }}
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
