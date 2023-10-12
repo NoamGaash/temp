@@ -30,3 +30,14 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: url.txt
+        path: url.txt
+        retention-days: 30
+    - name: Set summary
+      if: always()
+      run: |
+        echo "test results url:" >> $GITHUB_STEP_SUMMARY
+        cat url.txt >> $GITHUB_STEP_SUMMARY
